@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mood/models/mood_model.dart';
 
 class MoodFacePainter extends CustomPainter {
-  final MoodType? mood;
+  final MoodType mood;
 
   MoodFacePainter({required this.mood});
 
@@ -49,11 +49,24 @@ class MoodFacePainter extends CustomPainter {
     canvas.drawPath(leftEye, eyePaint);
     canvas.drawPath(rightEye, eyePaint);
 
-    // Face smile
+    switch (mood) {
+      case MoodType.happy:
+        _drawFace(canvas, center, radius);
+        break;
+        case MoodType.neutral:
+          _drawFace(canvas, center, radius);
+          break;
+      case MoodType.sad:
+        _drawFace(canvas, center, radius);
+        break;
+    }
+  }
+
+  void _drawFace(Canvas canvas, Offset center, double radius) {
     final mouthRect = Rect.fromCenter(
-        center: Offset(center.dx, center.dy),
-        width: radius * 0.95,
-        height: radius * 0.7,
+      center: Offset(center.dx, center.dy),
+      width: radius * 0.95,
+      height: radius * 0.7,
     );
 
     final mouthPaint = Paint()
