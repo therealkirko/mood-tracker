@@ -49,11 +49,14 @@ class MoodFacePainter extends CustomPainter {
     final mouthRect = Rect.fromCenter(
         center: Offset(center.dx, center.dy),
         width: radius * 0.95,
-        height: radius * 0.7
+        height: radius * 0.7,
     );
 
     final mouthPaint = Paint()
-      ..color = const Color(0xFF2C2A30);
+      ..color = const Color(0xFF2C2A30)
+      ..strokeWidth = radius * 0.09
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
 
     canvas.drawArc(mouthRect, 0.2, 2.74, false, mouthPaint);
   }
