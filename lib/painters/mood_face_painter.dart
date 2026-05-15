@@ -21,7 +21,7 @@ class MoodFacePainter extends CustomPainter {
     final eyeY = center.dy - radius * 0.18;
     final eyeOffset = radius * 0.38;
 
-    final leftEye = Path()
+    final rightEye = Path()
       ..moveTo(center.dx - eyeOffset - radius * 0.13, eyeY)
       ..quadraticBezierTo(
         center.dx - eyeOffset,
@@ -30,7 +30,7 @@ class MoodFacePainter extends CustomPainter {
         eyeY,
       );
 
-    canvas.drawPath(leftEye, eyePaint);
+    canvas.drawPath(rightEye, eyePaint);
   }
 
   @override
