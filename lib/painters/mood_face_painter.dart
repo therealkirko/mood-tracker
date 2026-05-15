@@ -51,32 +51,48 @@ class MoodFacePainter extends CustomPainter {
 
     switch (mood) {
       case MoodType.happy:
-        _drawFace(canvas, center, radius);
+        _drawHappyFace(canvas, center, radius);
         break;
-        case MoodType.neutral:
-          _drawFace(canvas, center, radius);
-          break;
+      case MoodType.neutral:
+        _drawNeutralFace(canvas, center, radius);
+        break;
       case MoodType.sad:
-        _drawFace(canvas, center, radius);
+        _drawHappyFace(canvas, center, radius);
         break;
     }
   }
 
-  void _drawFace(Canvas canvas, Offset center, double radius) {
+  void _drawHappyFace(Canvas canvas, Offset center, double radius) {
     final mouthRect = Rect.fromCenter(
-      center: Offset(center.dx, center.dy),
+      center: Offset(center.dx, center.dy + radius * 0.18),
       width: radius * 0.95,
       height: radius * 0.7,
     );
 
     final mouthPaint = Paint()
       ..color = const Color(0xFF2C2A30)
+      ..style = PaintingStyle.stroke
       ..strokeWidth = radius * 0.09
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
+      ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(mouthRect, 0.2, 2.74, false, mouthPaint);
   }
+
+  void _drawNeutralFace(Canvas canvas, Offset center, double radius) {
+    final mouthPaint = Paint()
+      ..color = const Color(0xFF2C2A30)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = radius * 0.09
+      ..strokeCap = StrokeCap.round;
+
+    final mouthY = center.dy + radius * 0.38;
+    canvas.drawLine(
+      Offset(center.dx - radius * 0.32, mouthY),
+      Offset(center.dx + radius * 0.32, mouthY),
+      mouthPaint,
+    );
+  }
+
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
