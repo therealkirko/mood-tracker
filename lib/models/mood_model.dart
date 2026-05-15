@@ -26,6 +26,7 @@ extension MoodTypeData on MoodType {
         return const Color(0xFFE0E4E8);
     }
   }
+}
 
 class MoodEntry {
   final MoodType mood;
