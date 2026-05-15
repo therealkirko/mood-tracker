@@ -45,7 +45,6 @@ class MoodFacePainter extends CustomPainter {
     canvas.drawPath(rightEye, eyePaint);
 
     // Face smile
-
     final mouthRect = Rect.fromCenter(
         center: Offset(center.dx, center.dy),
         width: radius * 0.95,
