@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "framework": null,
+  "functions": {},
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
