@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 enum MoodType { happy, neutral, sad }
 
 extension MoodTypeData on MoodType {
@@ -11,6 +13,17 @@ extension MoodTypeData on MoodType {
         return 'Okay';
       case MoodType.sad:
         return 'Sad';
+    }
+  }
+
+  Color get softColor {
+    switch (this) {
+      case MoodType.happy:
+        return const Color(0xFFFBEAD9);
+      case MoodType.neutral:
+        return const Color(0xFFF1E2E8);
+      case MoodType.sad:
+        return const Color(0xFFE0E4E8);
     }
   }
 }

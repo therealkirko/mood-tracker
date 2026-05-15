@@ -3,11 +3,12 @@ import 'package:mood/models/mood_model.dart';
 
 class MoodFacePainter extends CustomPainter {
   final MoodType mood;
+  final Color faceColor;
   final double animationValue;
   
   final Color featureColor = const Color(0xFF2C2A30);
 
-  MoodFacePainter({required this.mood, this.animationValue = 1.0});
+  MoodFacePainter({required this.mood, this.animationValue = 1.0, required this.faceColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -24,7 +25,7 @@ class MoodFacePainter extends CustomPainter {
     );
 
     final facePaint = Paint()
-      ..color = const Color(0xFFFBEAD9)
+      ..color = faceColor
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, radius, facePaint);
 
