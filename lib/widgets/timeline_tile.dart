@@ -15,6 +15,52 @@ class TimelineTile extends StatefulWidget {
 class _TimelineTileState extends State<TimelineTile>
     with SingleTickerProviderStateMixin {
 
+  late final AnimationController _controller;
+  late final Animation<double> _scale;
+  late final Animation<double> _wobble;
+  late final Animation<double> _ripple;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    _scale = TweenSequence<double>([
+
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.25).chain(CurveTween(curve: Curves.easeOutBack)),
+        weight: 40,
+      ),
+
+      TweenSequenceItem(
+        tween: Tween(begin: 1.25, end: 1.0).chain(CurveTween(curve: Curves.easeInOutCubic)),
+        weight: 60,
+      ),
+    ]).animate(_controller);
+
+    _wobble = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 0.15), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 0.15, end: -0.12), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: -0.12, end: 0.06), weight: 25),
+      TweenSequenceItem(tween: Tween(begin: 0.06, end: 0.0), weight: 25),
+    ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _ripple = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _playAnimation() {
+    _controller.forward(from: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = widget.entry.mood.accentColor;
@@ -22,6 +68,7 @@ class _TimelineTileState extends State<TimelineTile>
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
+        onTap: _playAnimation,
         child: Container(
           width: 140,
           margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -54,7 +101,38 @@ class _TimelineTileState extends State<TimelineTile>
               SizedBox(
                 height: 86,
                 width: 86,
-                child: MoodFace(mood: widget.entry.mood),
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        if (_controller.isAnimating)
+                          Container(
+                            width: 80 + (40 * _ripple.value),
+                            height: 80 + (40 * _ripple.value),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: accent.withValues(
+                                  alpha: (1 - _ripple.value) * 0.6,
+                                ),
+                                width: 2,
+                              ),
+                            ),
+                          ),
+                        Transform.rotate(
+                          angle: _wobble.value,
+                          child: Transform.scale(
+                            scale: _scale.value,
+                            child: child,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  child: MoodFace(mood: widget.entry.mood),
+                ),
               ),
 
               const SizedBox(height: 14),
