@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood/models/mood_model.dart';
-import 'package:mood/widgets/mood_face.dart';
+import 'package:mood/widgets/mood_picker.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,23 +15,22 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: MoodType.values.map((mood) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MoodFace(mood: mood), // The painter widget
-                const SizedBox(height: 12),
-                Text(
-                  mood.label, // Using your extension
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-              ],
-            );
-          }).toList(),
-        ),
+      body: Column(
+        children: [
+          Text(
+            'How are you feeling?',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          SizedBox(height: 24),
+          MoodPicker(
+            onMoodSelected: (mood) {
+              print(mood.label);
+            }
+          )
+        ],
       ),
     );
   }
