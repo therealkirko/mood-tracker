@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mood/models/mood_model.dart';
 import 'package:mood/widgets/mood_picker.dart';
+import 'package:mood/widgets/timeline_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -113,6 +114,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     const SizedBox(height: 20),
+
+                    SizedBox(
+                      height: 260,
+                      child: _entries.isEmpty
+                          ? SizedBox.shrink()
+                          : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        itemCount: _entries.length,
+                        itemBuilder: (context, index) {
+                          return TimelineTile(
+                            key: ValueKey(
+                              _entries[index].timestamp.microsecondsSinceEpoch,
+                            ),
+                            entry: _entries[index],
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 )
               ],
