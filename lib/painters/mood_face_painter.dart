@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mood/models/mood_model.dart';
 
 class MoodFacePainter extends CustomPainter {
+  final MoodType? mood;
+
+  MoodFacePainter({required this.mood});
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);

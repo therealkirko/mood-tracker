@@ -14,7 +14,7 @@ class MoodFace extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: const Size(80, 80),
-      painter: MoodFacePainter(mood: mood),
+      painter: MoodFacePainter(),
     );
   }
 }
