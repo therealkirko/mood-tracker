@@ -14,3 +14,10 @@ extension MoodTypeData on MoodType {
     }
   }
 }
+
+class MoodEntry {
+  final MoodType mood;
+  final DateTime timestamp;
+
+  const MoodEntry({required this.mood, required this.timestamp});
+}
