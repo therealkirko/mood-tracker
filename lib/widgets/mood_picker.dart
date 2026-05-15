@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood/models/mood_model.dart';
-
-import 'mood_face.dart';
+import 'package:mood/widgets/mood_face.dart';
 
 class MoodPicker extends StatelessWidget {
   final ValueChanged<MoodType> onMoodSelected;
