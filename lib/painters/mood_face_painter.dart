@@ -57,7 +57,7 @@ class MoodFacePainter extends CustomPainter {
         _drawNeutralFace(canvas, center, radius);
         break;
       case MoodType.sad:
-        _drawHappyFace(canvas, center, radius);
+        _drawSadFace(canvas, center, radius);
         break;
     }
   }
@@ -91,6 +91,22 @@ class MoodFacePainter extends CustomPainter {
       Offset(center.dx + radius * 0.32, mouthY),
       mouthPaint,
     );
+  }
+
+
+  void _drawSadFace(Canvas canvas, Offset center, double radius) {
+    final mouthRect = Rect.fromCenter(
+      center: Offset(center.dx, center.dy + radius * 0.55),
+      width: radius * 0.85,
+      height: radius * 0.55,
+    );
+    final mouthPaint = Paint()
+      ..color = const Color(0xFF2C2A30)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = radius * 0.09
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(mouthRect, 3.34, 2.6, false, mouthPaint);
   }
 
 
