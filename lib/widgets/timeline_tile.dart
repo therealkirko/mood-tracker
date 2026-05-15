@@ -61,6 +61,23 @@ class _TimelineTileState extends State<TimelineTile>
     _controller.forward(from: 0);
   }
 
+  String _formatDate(DateTime dt) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    return '${months[dt.month - 1]} ${dt.day}';
+  }
+
+  String _formatTime(DateTime dt) {
+    final hour = dt.hour == 0
+        ? 12
+        : (dt.hour > 12 ? dt.hour - 12 : dt.hour);
+    final minute = dt.minute.toString().padLeft(2, '0');
+    final period = dt.hour >= 12 ? 'PM' : 'AM';
+    return '$hour:$minute $period';
+  }
+
   @override
   Widget build(BuildContext context) {
     final accent = widget.entry.mood.accentColor;
@@ -146,7 +163,7 @@ class _TimelineTileState extends State<TimelineTile>
               ),
               const SizedBox(height: 4),
               Text(
-                widget.entry.timestamp.toString(),
+                _formatDate(widget.entry.timestamp),
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -154,7 +171,7 @@ class _TimelineTileState extends State<TimelineTile>
                 ),
               ),
               Text(
-                widget.entry.timestamp.toString(),
+                _formatTime(widget.entry.timestamp),
                 style: GoogleFonts.inter(
                   fontSize: 11,
                   color: const Color(0xFF9A949E),
