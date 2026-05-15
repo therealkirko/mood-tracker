@@ -26,6 +26,17 @@ extension MoodTypeData on MoodType {
         return const Color(0xFFE0E4E8);
     }
   }
+
+  Color get accentColor {
+    switch (this) {
+      case MoodType.happy:
+        return const Color(0xFFE8A87C); // warm apricot
+      case MoodType.neutral:
+        return const Color(0xFFC38D9E); // muted rose
+      case MoodType.sad:
+        return const Color(0xFF85929E); // dusty slate
+    }
+  }
 }
 
 class MoodEntry {
