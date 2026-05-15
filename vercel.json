@@ -1,6 +1,11 @@
 {
   "version": 2,
-  "framework": null,
+  "builds": [
+    {
+      "src": "pubspec.yaml",
+      "use": "vercel-flutter"
+    }
+  ],
   "routes": [
     {
       "handle": "filesystem"
